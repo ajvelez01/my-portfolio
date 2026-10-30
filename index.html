@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abel J. Vélez Ruiz | Portfolio</title>
+  <meta name="description" content="Healthcare operations leader turned AI software engineer. Portfolio of Abel J. Vélez Ruiz.">
+  <meta name="theme-color" content="#0E1411">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1411'/%3E%3Ctext x='32' y='43' font-size='34' font-family='Georgia,serif' text-anchor='middle' fill='%236FB38A'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Abel J. Vélez Ruiz</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n="nav.menu">Menu</button>
+
+      <nav id="site-nav" class="site-nav" data-i18n-aria="nav.label" aria-label="Main">
+        <ul>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+          <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+          <li><a href="#founder" data-i18n="nav.founder">Founder</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Intro -->
+    <section id="top" class="hero">
+      <div class="container">
+        <h1 data-i18n="hero.title">Healthcare operations leader turned AI software engineer</h1>
+        <p class="hero-pitch" data-i18n="hero.pitch">I build SaaS and web apps for healthcare, grants, and agriculture, backed by 17+ years in healthcare operations.</p>
+        <p class="hero-meta" data-i18n="hero.meta">Based in Puerto Rico. Studying AI software engineering at Holberton Coding School.</p>
+        <p class="hero-actions">
+          <a class="btn btn--solid" href="#projects" data-i18n="hero.cta1">View projects</a>
+          <a class="btn btn--outline" href="#experience" data-i18n="hero.cta2">See experience</a>
+        </p>
+        <ul class="facts">
+          <li><strong>17+</strong> <span data-i18n="stat1.label">years in healthcare operations</span></li>
+          <li><strong>+40%</strong> <span data-i18n="stat2.label">average daily census at the main hyperbaric facility (2009)</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 id="projects-title" data-i18n="projects.title">Projects</h2>
+        <p class="section-intro" data-i18n="projects.intro">All projects are in development. Previews are illustrative wireframes, not screenshots.</p>
+
+        <div class="card-grid">
+
+          <article class="card" data-project="subvenio">
+            <div class="card-media">
+              <div class="preview preview--app" role="img" data-i18n-aria="p.subvenio.alt" aria-label="Wireframe of the Subvenio interface: sidebar, top bar, and proposal rows">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="badge" data-i18n="preview.label">Interface preview</span>
+            </div>
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>Subvenio</h3>
+              <p data-i18n="p.subvenio.desc">Multi-tenant SaaS for writing federal grant proposals, with AI-assisted narratives checked against a fact ledger and budget validation.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>Alpine.js</li><li>Supabase</li><li>PostgreSQL</li><li>Edge Functions</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="subvenio" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+          <article class="card" data-project="census">
+            <div class="card-media">
+              <div class="preview preview--heat" role="img" data-i18n-aria="p.census.alt" aria-label="Wireframe of the Clinical Census Dashboard: filter bar, summary tiles, heatmap, and provider list">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="badge" data-i18n="preview.label">Interface preview</span>
+            </div>
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>Clinical Census Dashboard</h3>
+              <p data-i18n="p.census.desc">Excel-driven census dashboard for pediatric centers in Puerto Rico, with a heatmap, provider analytics, and data export.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>JavaScript</li><li>SheetJS</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="census" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+          <article class="card" data-project="flavorbridge">
+            <div class="card-media">
+              <div class="preview preview--pair" role="img" data-i18n-aria="p.flavorbridge.alt" aria-label="Wireframe of FlavorBridge: header with language toggle, pairing note card, and tags">
+                <i></i><i></i><i></i><i></i>
+              </div>
+              <span class="badge" data-i18n="preview.label">Interface preview</span>
+            </div>
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>FlavorBridge</h3>
+              <p data-i18n="p.flavorbridge.desc">B2B cigar and beverage pairing platform for venues, with AI pairing notes, an EN/ES toggle, and QR attribution.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>Alpine.js</li><li>Supabase</li><li>Edge Functions</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="flavorbridge" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+          <article class="card card--plain" data-project="pos">
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>Semila POS v3</h3>
+              <p data-i18n="p.pos.desc">Point-of-sale system with a PostgreSQL schema, per-terminal credentials, and Stripe and ATH Móvil payments.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>PostgreSQL</li><li>Stripe</li><li>ATH Móvil</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="pos" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+          <article class="card" data-project="chocotrack">
+            <div class="card-media">
+              <div class="preview preview--table" role="img" data-i18n-aria="p.chocotrack.alt" aria-label="Wireframe of CHOCO-TRACK: header and a table of inventory lots with status tags">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="badge" data-i18n="preview.label">Interface preview</span>
+            </div>
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>CHOCO-TRACK</h3>
+              <p data-i18n="p.chocotrack.desc">Progressive web app for chocolate factory inventory with lot tracking.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>Alpine.js</li><li>Supabase</li><li>PWA</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="chocotrack" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+          <article class="card card--plain" data-project="pdf">
+            <div class="card-body">
+              <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+              <h3>PDF Workspace Pro</h3>
+              <p data-i18n="p.pdf.desc">Browser-based PDF toolset: compress, merge, sign, protect, rotate, and more.</p>
+              <ul class="chips" data-i18n-aria="card.tech" aria-label="Technologies">
+                <li>JavaScript</li><li>PDF.js</li><li>pdf-lib</li>
+              </ul>
+              <button type="button" class="btn btn--ghost" data-open="pdf" data-i18n="card.details">View details</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 id="skills-title" data-i18n="skills.title">Skills</h2>
+
+        <div class="skill-grid">
+          <div class="skill-group">
+            <h3 data-i18n="skills.front">Frontend</h3>
+            <ul class="chips">
+              <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Alpine.js</li><li>React</li>
+              <li data-i18n="sk.pwa">Progressive web apps</li>
+              <li data-i18n="sk.offline">Offline-first (IndexedDB)</li>
+              <li>PDF.js</li><li>pdf-lib</li><li>SheetJS</li><li>Leaflet</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 data-i18n="skills.back">Backend and data</h3>
+            <ul class="chips">
+              <li>Supabase</li><li>PostgreSQL</li><li>Row-Level Security</li><li>Edge Functions</li>
+              <li data-i18n="sk.auth">Authentication</li>
+              <li data-i18n="sk.schema">Schema design</li>
+              <li>pgvector</li>
+              <li data-i18n="sk.multitenant">Multi-tenant SaaS architecture</li>
+              <li>Stripe</li><li>ATH Móvil</li>
+              <li data-i18n="sk.webhooks">Webhook security</li>
+              <li data-i18n="sk.testing">Automated testing</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 data-i18n="skills.ai">AI</h3>
+            <ul class="chips">
+              <li data-i18n="sk.anthropic">Anthropic API through Edge Functions</li>
+              <li data-i18n="sk.rag">RAG with citations</li>
+              <li data-i18n="sk.ratelimit">Rate limiting and fallbacks</li>
+              <li data-i18n="sk.agents">Prompt and agent design</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 data-i18n="skills.deploy">Deployment and documentation</h3>
+            <ul class="chips">
+              <li>Netlify</li><li>Git</li><li>GitHub</li>
+              <li data-i18n="sk.diagrams">Architecture diagrams (Mermaid)</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 data-i18n="skills.domain">Healthcare and grants</h3>
+            <ul class="chips">
+              <li data-i18n="sk.hcadmin">Healthcare administration</li>
+              <li data-i18n="sk.hcdata">Healthcare data management</li>
+              <li data-i18n="sk.census">Census analytics</li>
+              <li data-i18n="sk.compliance">Regulatory compliance</li>
+              <li data-i18n="sk.lean">Lean process improvement</li>
+              <li data-i18n="sk.grants">Federal grants (USDA LFPP/FMPP)</li>
+              <li data-i18n="sk.cfr">2 CFR 200 budget validation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <div class="container">
+        <h2 id="experience-title" data-i18n="experience.title">Experience</h2>
+
+        <ol class="timeline">
+          <li class="timeline-item timeline-item--current">
+            <h3 data-i18n="exp.1.role">Regional Clinic Facility Director</h3>
+            <p class="timeline-org">Department of Health of Puerto Rico</p>
+            <p class="timeline-dates" data-i18n="exp.1.dates">2018 to present</p>
+          </li>
+
+          <li class="timeline-item">
+            <h3 data-i18n="exp.2.role">Hyperbaric Facility Administrator</h3>
+            <p class="timeline-org">Hyperbaric Healing Institute, Arecibo and Ponce</p>
+            <p class="timeline-dates">2008 to 2017</p>
+            <ul>
+              <li data-i18n="exp.2.b1">Increased average daily census by 40% at the main facility in 2009.</li>
+              <li data-i18n="exp.2.b2">Managed a second hyperbaric facility in southern Puerto Rico.</li>
+            </ul>
+          </li>
+
+          <li class="timeline-item">
+            <h3 data-i18n="exp.3.role">Administrative Resident</h3>
+            <p class="timeline-org">Pediatric University Hospital and Metropolitan Pediatric Center, Centro Médico</p>
+            <p class="timeline-dates">2017 to 2018</p>
+            <ul>
+              <li data-i18n="exp.3.b1">Established a work plan for the material management department.</li>
+              <li data-i18n="exp.3.b2">Developed a digital inventory system.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="edu">
+          <h3 data-i18n="edu.title">Education</h3>
+          <ul>
+            <li data-i18n="edu.1">Master of Health Services Administration, University of Puerto Rico, Medical Sciences Campus (2014 to 2018)</li>
+            <li data-i18n="edu.2">Bachelor of Business Administration, Accounting, University of Puerto Rico, Arecibo Campus (2007)</li>
+            <li data-i18n="edu.3">Holberton Coding School, AI software engineering (in progress)</li>
+          </ul>
+          <p class="edu-aff"><span data-i18n="edu.aff">Professional affiliations:</span> American College of Health Executives; College of Health Services Administrators of Puerto Rico; Association of Medical Billers of Puerto Rico.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Founder -->
+    <section id="founder" class="section" aria-labelledby="founder-title">
+      <div class="container">
+        <h2 id="founder-title" data-i18n="founder.title">Founder</h2>
+        <p class="section-intro" data-i18n="founder.intro">I also run Finca Semila, an agroforestry and specialty cacao operation in Puerto Rico, and build software products through Semila LLC.</p>
+
+        <div class="founder-grid">
+          <article class="founder-item">
+            <h3>Semila LLC</h3>
+            <p data-i18n="semila.desc">Builds a portfolio of SaaS and web products.</p>
+          </article>
+          <article class="founder-item">
+            <h3>Finca Semila / Cacao 360</h3>
+            <p data-i18n="cacao.desc">Agroforestry and specialty cacao agrotourism operation, with a cocoa farm. I am the chocolate sommelier for the Cacao 360 brand.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title" data-i18n="contact.title">Contact</h2>
+        <p data-i18n="contact.text">Contact links will be added soon.</p>
+        <!--
+          When you have your links, replace the paragraph above with a list like this
+          (add only the ones you have; delete the rest):
+
+          <ul class="contact-links">
+            <li><a class="btn btn--outline" href="PASTE-YOUR-LINKEDIN-URL-HERE" rel="noopener">LinkedIn</a></li>
+            <li><a class="btn btn--outline" href="PASTE-YOUR-GITHUB-URL-HERE" rel="noopener">GitHub</a></li>
+          </ul>
+        -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Abel J. Vélez Ruiz</p>
+      <a href="#top" data-i18n="footer.top">Back to top</a>
+    </div>
+  </footer>
+
+  <!-- Project details window (built-in dialog element) -->
+  <dialog id="project-dialog" aria-labelledby="dlg-title">
+    <div class="dlg-inner">
+      <div class="dlg-head">
+        <h2 id="dlg-title"></h2>
+        <button type="button" class="dlg-close" data-close data-i18n="dlg.close">Close</button>
+      </div>
+      <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="status.dev">In development</span></p>
+      <div id="dlg-media" class="dlg-media"></div>
+
+      <h3 data-i18n="dlg.overview">Overview</h3>
+      <p id="dlg-overview"></p>
+
+      <h3 data-i18n="dlg.role">My role</h3>
+      <p id="dlg-role"></p>
+
+      <h3 data-i18n="dlg.highlights">Highlights</h3>
+      <ul id="dlg-highlights"></ul>
+
+      <h3 data-i18n="dlg.stack">Stack</h3>
+      <ul id="dlg-stack" class="chips"></ul>
+
+      <p class="dlg-note" data-i18n="dlg.note">No live link or source link yet. Links will be added when available.</p>
+
+      <div class="dlg-nav">
+        <button type="button" class="btn btn--ghost" data-prev data-i18n="dlg.prev">Previous project</button>
+        <button type="button" class="btn btn--ghost" data-next data-i18n="dlg.next">Next project</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
