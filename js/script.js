@@ -1,477 +1,550 @@
 /* ==========================================================================
    Portfolio: Abel J. Vélez Ruiz
-   Plain JavaScript, no frameworks, no external libraries.
-
-   What this file does:
-   1. Marks the page as "JavaScript on" (lets the phone menu collapse).
-   2. EN/ES language toggle (English text lives in index.html; Spanish is below).
-   3. Project details window (text for each project is in PROJECTS below).
-   4. Phone menu open/close.
-   5. Highlights the current section in the menu while scrolling.
-
-   To edit text: change the strings in ES (Spanish page text) or PROJECTS
-   (project details, English and Spanish). Keep the quotes and commas.
+   Plain CSS, no frameworks, no external fonts or libraries.
+   Edit colors in the :root block below; everything else follows from it.
    ========================================================================== */
 
-(function () {
-  "use strict";
+:root {
+  color-scheme: dark;
 
-  var root = document.documentElement;
-  root.classList.add("js");
+  --bg: #0e1411;
+  --surface: #151d18;
+  --surface-2: #1a2620;
+  --border: #243029;
+  --text: #e8ede9;
+  --muted: #9aa89f;
+  --accent: #6fb38a;
+  --accent-hover: #86c4a0;
+  --on-accent: #0e1411;
+  --accent-tint: rgba(111, 179, 138, 0.22);
+  --brand: #2d5c3f;
+  --header-bg: rgba(14, 20, 17, 0.94);
+  --header-bg-blur: rgba(14, 20, 17, 0.8);
+  --badge-bg: rgba(14, 20, 17, 0.92);
+  --preview-bg: #101713;
 
-  /* ---------- Spanish text for every data-i18n key in index.html ---------- */
+  --font-head: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  var ES = {
-    "skip": "Saltar al contenido",
-    "nav.menu": "Menú",
-    "nav.label": "Principal",
-    "nav.projects": "Proyectos",
-    "nav.skills": "Habilidades",
-    "nav.experience": "Experiencia",
-    "nav.founder": "Fundador",
-    "nav.contact": "Contacto",
-    "lang.label": "Idioma",
+  --header-h: 68px;
+}
 
-    "hero.title": "Líder de operaciones de salud convertido en ingeniero de software de IA",
-    "hero.pitch": "Creo aplicaciones web y SaaS para salud, subvenciones y agricultura, respaldadas por más de 17 años en operaciones de salud.",
-    "hero.meta": "Radicado en Puerto Rico. Estudio ingeniería de software con IA en Holberton Coding School.",
-    "hero.cta1": "Ver proyectos",
-    "hero.cta2": "Ver experiencia",
-    "stat1.label": "años en operaciones de salud",
-    "stat2.label": "en el censo diario promedio del centro hiperbárico principal (2009)",
+/* Light theme: only the colors change. Switched by the theme button (js/script.js). */
+:root[data-theme="light"] {
+  color-scheme: light;
 
-    "projects.title": "Proyectos",
-    "projects.intro": "Todos los proyectos están en desarrollo. Las vistas previas son esquemas ilustrativos, no capturas de pantalla.",
-    "p.subvenio.alt": "Esquema de la interfaz de Subvenio: barra lateral, barra superior y filas de propuestas",
-    "p.subvenio.desc": "SaaS multiinquilino para redactar propuestas de subvenciones federales, con narrativas asistidas por IA verificadas contra un registro de hechos y validación de presupuesto.",
-    "p.census.alt": "Esquema del Clinical Census Dashboard: barra de filtros, tarjetas de resumen, mapa de calor y lista de proveedores",
-    "p.census.desc": "Panel de censo basado en Excel para centros pediátricos de Puerto Rico, con mapa de calor, análisis por proveedor y exportación de datos.",
-    "p.flavorbridge.alt": "Esquema de FlavorBridge: encabezado con selector de idioma, tarjeta de nota de maridaje y etiquetas",
-    "p.flavorbridge.desc": "Plataforma B2B de maridaje de cigarros y bebidas para locales, con notas de maridaje con IA, selector EN/ES y atribución por QR.",
-    "p.pos.desc": "Sistema de punto de venta con esquema PostgreSQL, credenciales por terminal y pagos con Stripe y ATH Móvil.",
-    "p.chocotrack.alt": "Esquema de CHOCO-TRACK: encabezado y tabla de lotes de inventario con etiquetas de estado",
-    "p.chocotrack.desc": "Aplicación web progresiva para el inventario de una fábrica de chocolate, con rastreo por lote.",
-    "p.pdf.desc": "Herramientas PDF en el navegador: comprimir, unir, firmar, proteger, rotar y más.",
-    "preview.label": "Vista previa de interfaz",
-    "status.dev": "En desarrollo",
-    "card.tech": "Tecnologías",
-    "card.details": "Ver detalles",
+  --bg: #f6f8f5;
+  --surface: #ffffff;
+  --surface-2: #edf2ee;
+  --border: #d3ddd6;
+  --text: #16211a;
+  --muted: #4d5d53;
+  --accent: #2d5c3f;
+  --accent-hover: #3a7451;
+  --on-accent: #ffffff;
+  --accent-tint: rgba(45, 92, 63, 0.14);
+  --brand: #2d5c3f;
+  --header-bg: rgba(246, 248, 245, 0.94);
+  --header-bg-blur: rgba(246, 248, 245, 0.82);
+  --badge-bg: rgba(255, 255, 255, 0.92);
+  --preview-bg: #f1f5f2;
+}
 
-    "skills.title": "Habilidades",
-    "skills.front": "Frontend",
-    "skills.back": "Backend y datos",
-    "skills.ai": "IA",
-    "skills.deploy": "Despliegue y documentación",
-    "skills.domain": "Salud y subvenciones",
-    "sk.pwa": "Aplicaciones web progresivas",
-    "sk.offline": "Funcionamiento sin conexión (IndexedDB)",
-    "sk.auth": "Autenticación",
-    "sk.schema": "Diseño de esquemas",
-    "sk.multitenant": "Arquitectura SaaS multiinquilino",
-    "sk.webhooks": "Seguridad de webhooks",
-    "sk.testing": "Pruebas automatizadas",
-    "sk.anthropic": "API de Anthropic mediante Edge Functions",
-    "sk.rag": "RAG con citas",
-    "sk.ratelimit": "Límites de uso y respaldos",
-    "sk.agents": "Diseño de prompts y agentes",
-    "sk.diagrams": "Diagramas de arquitectura (Mermaid)",
-    "sk.hcadmin": "Administración de servicios de salud",
-    "sk.hcdata": "Gestión de datos de salud",
-    "sk.census": "Análisis de censo",
-    "sk.compliance": "Cumplimiento regulatorio",
-    "sk.lean": "Mejora de procesos Lean",
-    "sk.grants": "Subvenciones federales (USDA LFPP/FMPP)",
-    "sk.cfr": "Validación de presupuesto 2 CFR 200",
+/* ---------- Base ---------- */
 
-    "experience.title": "Experiencia",
-    "exp.1.role": "Director de Instalación de Clínica Regional",
-    "exp.1.dates": "2018 a la actualidad",
-    "exp.2.role": "Administrador de Instalación Hiperbárica",
-    "exp.2.b1": "Aumenté el censo diario promedio en un 40 % en la instalación principal en 2009.",
-    "exp.2.b2": "Dirigí una segunda instalación hiperbárica en el sur de Puerto Rico.",
-    "exp.3.role": "Residente Administrativo",
-    "exp.3.b1": "Establecí un plan de trabajo para el departamento de manejo de materiales.",
-    "exp.3.b2": "Desarrollé un sistema digital de inventario.",
-    "edu.title": "Educación",
-    "edu.1": "Maestría en Administración de Servicios de Salud, Universidad de Puerto Rico, Recinto de Ciencias Médicas (2014 a 2018)",
-    "edu.2": "Bachillerato en Administración de Empresas, Contabilidad, Universidad de Puerto Rico, Recinto de Arecibo (2007)",
-    "edu.3": "Holberton Coding School, ingeniería de software con IA (en curso)",
-    "edu.aff": "Afiliaciones profesionales:",
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-    "founder.title": "Fundador",
-    "founder.intro": "También dirijo Finca Semila, una operación agroforestal y de cacao especializado en Puerto Rico, y creo productos de software mediante Semila LLC.",
-    "semila.desc": "Desarrolla un portafolio de productos SaaS y web.",
-    "cacao.desc": "Operación de agroturismo agroforestal y de cacao especializado, con finca de cacao. Soy el sommelier de chocolate de la marca Cacao 360.",
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+}
 
-    "contact.title": "Contacto",
-    "contact.text": "Los enlaces de contacto se añadirán pronto.",
-    "footer.top": "Volver arriba",
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.6;
+}
 
-    "dlg.close": "Cerrar",
-    "dlg.overview": "Descripción",
-    "dlg.role": "Mi función",
-    "dlg.highlights": "Aspectos destacados",
-    "dlg.stack": "Tecnologías",
-    "dlg.note": "Aún no hay enlace al proyecto en vivo ni al código. Se añadirán cuando estén disponibles.",
-    "dlg.prev": "Proyecto anterior",
-    "dlg.next": "Proyecto siguiente"
-  };
+body:has(dialog[open]) { overflow: hidden; }
 
-  var META = {
-    en: {
-      title: "Abel J. Vélez Ruiz | Portfolio",
-      description: "Healthcare operations leader turned AI software engineer. Portfolio of Abel J. Vélez Ruiz."
-    },
-    es: {
-      title: "Abel J. Vélez Ruiz | Portafolio",
-      description: "Líder de operaciones de salud convertido en ingeniero de software de IA. Portafolio de Abel J. Vélez Ruiz."
-    }
-  };
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+h1, h2 { font-family: var(--font-head); font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.125rem; }
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0; padding: 0; }
 
-  /* ---------- Project details (shown in the window opened by "View details") ---------- */
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration: underline; }
 
-  var ORDER = ["subvenio", "census", "flavorbridge", "pos", "chocotrack", "pdf"];
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
-  var PROJECTS = {
-    subvenio: {
-      title: "Subvenio",
-      stack: ["Alpine.js", "Supabase", "PostgreSQL", "Row-Level Security", "Edge Functions", "Netlify", "Anthropic API"],
-      en: {
-        overview: "Multi-tenant SaaS for writing federal grant proposals. It starts with two writers, with a plan to sell subscriptions to other organizations later.",
-        role: "Sole developer: backend, frontend, and architecture.",
-        highlights: [
-          "Backend on Supabase and PostgreSQL, with Row-Level Security for multi-tenancy, 8 Edge Functions, and 42 passing tests.",
-          "AI-assisted proposal narratives verified against a fact ledger to guard against invented claims.",
-          "Budget validation against 2 CFR 200 rules.",
-          "Frontend rebuilt in Alpine.js and deployed on Netlify. The proposals, budget, and workspace screens work end to end; the grant announcement intake and checklist screens are still to build."
-        ]
-      },
-      es: {
-        overview: "SaaS multiinquilino para redactar propuestas de subvenciones federales. Comienza con dos redactores, con el plan de vender suscripciones a otras organizaciones más adelante.",
-        role: "Único desarrollador: backend, frontend y arquitectura.",
-        highlights: [
-          "Backend en Supabase y PostgreSQL, con Row-Level Security para multiinquilino, 8 Edge Functions y 42 pruebas aprobadas.",
-          "Narrativas de propuestas asistidas por IA y verificadas contra un registro de hechos para evitar afirmaciones inventadas.",
-          "Validación de presupuesto según las reglas de 2 CFR 200.",
-          "Frontend reconstruido en Alpine.js y desplegado en Netlify. Las pantallas de propuestas, presupuesto y espacio de trabajo funcionan de principio a fin; faltan las pantallas de ingreso del anuncio de subvención y la lista de verificación."
-        ]
-      }
-    },
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-    census: {
-      title: "Clinical Census Dashboard",
-      stack: ["JavaScript", "SheetJS", "HTML"],
-      en: {
-        overview: "Census dashboard for pediatric centers in Puerto Rico. It reads two types of Excel files with different column layouts and turns them into filterable analytics.",
-        role: "Design and development.",
-        highlights: [
-          "Handles two Excel formats (pediatric centers and other providers) with different column schemas.",
-          "Temporal filtering, attendance heatmap, and provider analytics.",
-          "Three attendance states and selection across multiple sheets.",
-          "Data export with SheetJS.",
-          "Delivered as a single HTML file."
-        ]
-      },
-      es: {
-        overview: "Panel de censo para centros pediátricos de Puerto Rico. Lee dos tipos de archivos de Excel con columnas diferentes y los convierte en análisis filtrables.",
-        role: "Diseño y desarrollo.",
-        highlights: [
-          "Maneja dos formatos de Excel (centros pediátricos y otros proveedores) con esquemas de columnas distintos.",
-          "Filtro por fechas, mapa de calor de asistencia y análisis por proveedor.",
-          "Tres estados de asistencia y selección entre varias hojas.",
-          "Exportación de datos con SheetJS.",
-          "Entregado como un solo archivo HTML."
-        ]
-      }
-    },
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
 
-    flavorbridge: {
-      title: "FlavorBridge",
-      stack: ["Alpine.js", "Supabase", "Edge Functions"],
-      en: {
-        overview: "B2B platform that pairs cigars and beverages, aimed at venues and lounges in Puerto Rico.",
-        role: "Design and development.",
-        highlights: [
-          "AI pairing notes generated by a server-side Edge Function, with a deterministic fallback when AI credits are unavailable.",
-          "Browser language detection with an EN/ES toggle that regenerates the active note.",
-          "QR attribution captured on every visit.",
-          "Venue platform mode that hides configuration screens from non-technical staff.",
-          "IP-based rate limit of 8 AI calls per hour."
-        ]
-      },
-      es: {
-        overview: "Plataforma B2B que combina cigarros y bebidas, dirigida a locales y salones de Puerto Rico.",
-        role: "Diseño y desarrollo.",
-        highlights: [
-          "Notas de maridaje con IA generadas por una Edge Function en el servidor, con un respaldo determinista cuando no hay créditos de IA.",
-          "Detección del idioma del navegador con selector EN/ES que regenera la nota activa.",
-          "Atribución por QR registrada en cada visita.",
-          "Modo de plataforma para locales que oculta las pantallas de configuración al personal no técnico.",
-          "Límite por IP de 8 llamadas de IA por hora."
-        ]
-      }
-    },
+/* ---------- Header ---------- */
 
-    pos: {
-      title: "Semila POS v3",
-      stack: ["PostgreSQL", "Stripe", "ATH Móvil", "JavaScript"],
-      en: {
-        overview: "Point-of-sale system for Semila, now in its third version.",
-        role: "Design and development.",
-        highlights: [
-          "PostgreSQL schema with per-terminal credentials and server-side price validation.",
-          "Stripe and ATH Móvil payments, with signature-verified webhooks.",
-          "Full demo mode when the backend is not configured.",
-          "Responsive layout for mobile, tablet, and desktop, plus an inventory module."
-        ]
-      },
-      es: {
-        overview: "Sistema de punto de venta para Semila, ya en su tercera versión.",
-        role: "Diseño y desarrollo.",
-        highlights: [
-          "Esquema PostgreSQL con credenciales por terminal y validación de precios en el servidor.",
-          "Pagos con Stripe y ATH Móvil, con webhooks verificados por firma.",
-          "Modo de demostración completo cuando el backend no está configurado.",
-          "Diseño adaptable a móvil, tableta y escritorio, con módulo de inventario."
-        ]
-      }
-    },
-
-    chocotrack: {
-      title: "CHOCO-TRACK",
-      stack: ["Alpine.js", "Supabase", "PWA"],
-      en: {
-        overview: "Progressive web app for chocolate factory inventory with lot tracking.",
-        role: "Design and development.",
-        highlights: [
-          "Tracks inventory by lot.",
-          "Built as a progressive web app (PWA)."
-        ]
-      },
-      es: {
-        overview: "Aplicación web progresiva para el inventario de una fábrica de chocolate, con rastreo por lote.",
-        role: "Diseño y desarrollo.",
-        highlights: [
-          "Rastrea el inventario por lote.",
-          "Construida como aplicación web progresiva (PWA)."
-        ]
-      }
-    },
-
-    pdf: {
-      title: "PDF Workspace Pro",
-      stack: ["JavaScript", "PDF.js", "pdf-lib", "Netlify"],
-      en: {
-        overview: "Browser-based PDF toolset that runs from a single HTML file.",
-        role: "Design and development.",
-        highlights: [
-          "Tools: compress, convert, edit and watermark, sign, protect, merge, rotate, crop, flatten, unlock, and number pages.",
-          "Rotation works on single pages or on all pages at once.",
-          "Built with PDF.js, pdf-lib, and plain JavaScript."
-        ]
-      },
-      es: {
-        overview: "Herramientas PDF en el navegador que funcionan desde un solo archivo HTML.",
-        role: "Diseño y desarrollo.",
-        highlights: [
-          "Herramientas: comprimir, convertir, editar y poner marca de agua, firmar, proteger, unir, rotar, recortar, aplanar, desbloquear y numerar páginas.",
-          "La rotación funciona en páginas individuales o en todas a la vez.",
-          "Construida con PDF.js, pdf-lib y JavaScript simple."
-        ]
-      }
-    }
-  };
-
-  /* ---------- Small helpers ---------- */
-
-  function byId(id) { return document.getElementById(id); }
-
-  function readLang() {
-    try { return localStorage.getItem("portfolio-lang"); } catch (e) { return null; }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+}
+@supports (backdrop-filter: blur(8px)) {
+  .site-header {
+    background: var(--header-bg-blur);
+    backdrop-filter: blur(10px);
   }
-  function saveLang(value) {
-    try { localStorage.setItem("portfolio-lang", value); } catch (e) { /* storage blocked: ignore */ }
-  }
+}
 
-  var lang = readLang();
-  if (lang !== "en" && lang !== "es") {
-    lang = (navigator.language || "en").toLowerCase().indexOf("es") === 0 ? "es" : "en";
-  }
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--header-h);
+  flex-wrap: wrap;
+}
 
-  /* ---------- Language ---------- */
+.brand {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  margin-right: auto;
+}
+.brand:hover { text-decoration: none; color: var(--accent); }
 
-  function applyLang(next) {
-    lang = next;
-    root.lang = lang;
+.site-nav ul { display: flex; gap: 4px; list-style: none; }
+.site-nav a {
+  display: block;
+  padding: 10px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  border-radius: 8px;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="true"] { color: var(--text); background: var(--surface); }
+.site-nav a[aria-current="true"] { box-shadow: inset 0 -2px 0 var(--accent); }
 
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-      if (el.getAttribute("data-en") === null) el.setAttribute("data-en", el.textContent);
-      var key = el.getAttribute("data-i18n");
-      el.textContent = (lang === "es" && ES[key]) ? ES[key] : el.getAttribute("data-en");
-    });
+.lang { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.lang button {
+  min-width: 44px;
+  min-height: 40px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lang button:hover { color: var(--text); }
+.lang button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.lang button:focus-visible { outline-offset: -3px; }
 
-    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
-      if (el.getAttribute("data-en-aria") === null) el.setAttribute("data-en-aria", el.getAttribute("aria-label") || "");
-      var key = el.getAttribute("data-i18n-aria");
-      el.setAttribute("aria-label", (lang === "es" && ES[key]) ? ES[key] : el.getAttribute("data-en-aria"));
-    });
+.nav-toggle {
+  display: none;
+  min-height: 40px;
+  padding: 0 14px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.nav-toggle:hover { border-color: var(--accent); }
 
-    document.title = META[lang].title;
-    var desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", META[lang].description);
+.theme-toggle {
+  min-height: 40px;
+  padding: 0 14px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-    document.querySelectorAll("[data-lang]").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", String(btn.getAttribute("data-lang") === lang));
-    });
+@media (max-width: 860px) {
+  .nav-toggle { display: inline-flex; align-items: center; }
+  .site-nav { order: 5; flex-basis: 100%; }
+  .site-nav ul { flex-direction: column; padding-bottom: 12px; }
+  /* Menu is hidden only when JavaScript is available to open it */
+  html.js .site-nav { display: none; }
+  html.js .site-nav.is-open { display: block; }
+}
 
-    if (dlg && dlg.open && currentId) renderDialog();
-  }
+/* ---------- Buttons ---------- */
 
-  document.querySelectorAll("[data-lang]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var chosen = btn.getAttribute("data-lang");
-      saveLang(chosen);
-      applyLang(chosen);
-    });
-  });
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.btn:hover { text-decoration: none; }
+.btn--solid { background: var(--accent); color: var(--on-accent); }
+.btn--solid:hover { background: var(--accent-hover); }
+.btn--outline { border-color: var(--accent); color: var(--accent); background: transparent; }
+.btn--outline:hover { background: var(--accent-tint); }
+.btn--ghost { border-color: var(--border); color: var(--text); background: transparent; }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ---------- Phone menu ---------- */
+/* ---------- Hero ---------- */
 
-  var nav = byId("site-nav");
-  var navToggle = document.querySelector(".nav-toggle");
+.hero { padding: 88px 0 72px; }
 
-  function closeNav() {
-    if (!nav || !navToggle) return;
-    nav.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  }
+.hero h1 {
+  max-width: 18ch;
+  font-size: clamp(2.5rem, 6.5vw, 4rem);
+  line-height: 1.08;
+  margin-bottom: 28px;
+}
+.hero-pitch { max-width: 36em; font-size: 1.25rem; margin-bottom: 12px; }
+.hero-meta { max-width: 40em; color: var(--muted); margin-bottom: 32px; }
 
-  if (nav && navToggle) {
-    navToggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", String(open));
-    });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) closeNav();
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.classList.contains("is-open")) {
-        closeNav();
-        navToggle.focus();
-      }
-    });
-  }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 48px; }
 
-  /* ---------- Project details window ---------- */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 56px;
+  list-style: none;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.facts li { display: flex; align-items: baseline; gap: 14px; max-width: 26rem; color: var(--muted); }
+.facts strong {
+  font-family: var(--font-head);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent);
+}
 
-  var dlg = byId("project-dialog");
-  var currentId = null;
-  var lastOpener = null;
+/* ---------- Sections ---------- */
 
-  function fillList(listEl, items) {
-    listEl.textContent = "";
-    items.forEach(function (text) {
-      var li = document.createElement("li");
-      li.textContent = text;
-      listEl.appendChild(li);
-    });
-  }
+.section { padding: 80px 0; border-top: 1px solid var(--border); }
+.section h2 { font-size: clamp(1.875rem, 4.5vw, 2.5rem); margin-bottom: 16px; }
+.section-intro { max-width: 40em; color: var(--muted); margin-bottom: 40px; }
 
-  function renderDialog() {
-    var project = PROJECTS[currentId];
-    if (!project) return;
-    var text = project[lang] || project.en;
+/* ---------- Chips ---------- */
 
-    byId("dlg-title").textContent = project.title;
-    byId("dlg-overview").textContent = text.overview;
-    byId("dlg-role").textContent = text.role;
-    fillList(byId("dlg-highlights"), text.highlights);
-    fillList(byId("dlg-stack"), project.stack);
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.chips li {
+  padding: 4px 11px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
 
-    var media = byId("dlg-media");
-    media.textContent = "";
-    var source = document.querySelector('.card[data-project="' + currentId + '"] .preview');
-    if (source) media.appendChild(source.cloneNode(true));
-  }
+/* ---------- Status ---------- */
 
-  function openProject(id, opener) {
-    currentId = id;
-    lastOpener = opener || null;
-    renderDialog();
-    if (!dlg.open) {
-      if (typeof dlg.showModal === "function") dlg.showModal();
-      else dlg.setAttribute("open", "");
-    }
-    dlg.scrollTop = 0;
-  }
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
 
-  function closeDialog() {
-    if (typeof dlg.close === "function") dlg.close();
-    else dlg.removeAttribute("open");
-  }
+/* ---------- Project cards ---------- */
 
-  function step(direction) {
-    var index = ORDER.indexOf(currentId);
-    currentId = ORDER[(index + direction + ORDER.length) % ORDER.length];
-    renderDialog();
-    dlg.scrollTop = 0;
-  }
+.card-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 680px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
 
-  if (dlg) {
-    document.querySelectorAll("[data-open]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        openProject(btn.getAttribute("data-open"), btn);
-      });
-    });
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.card:hover,
+.card:focus-within { border-color: var(--accent); }
 
-    dlg.querySelector("[data-close]").addEventListener("click", closeDialog);
-    dlg.querySelector("[data-prev]").addEventListener("click", function () { step(-1); });
-    dlg.querySelector("[data-next]").addEventListener("click", function () { step(1); });
+.card--plain { border-left: 4px solid var(--brand); }
 
-    // Click on the dark area outside the window closes it
-    dlg.addEventListener("click", function (e) {
-      if (e.target === dlg) closeDialog();
-    });
+.card-media { position: relative; padding: 14px 14px 0; }
+.card-body { display: flex; flex-direction: column; flex: 1; padding: 20px; }
+.card-body h3 { font-size: 1.3rem; margin-bottom: 10px; }
+.card-body > p:not(.status) { color: var(--muted); }
+.card-body .chips { margin: auto 0 20px; padding-top: 4px; }
+.card-body .btn { align-self: flex-start; }
 
-    // Left and right arrow keys move between projects (Esc closes, built in)
-    dlg.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
-    });
+.badge {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 2px 9px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  background: var(--badge-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
 
-    // Give focus back to the button that opened the window
-    dlg.addEventListener("close", function () {
-      if (lastOpener) lastOpener.focus();
-    });
-  }
+/* ---------- Wireframe previews (drawn with CSS, no images) ---------- */
 
-  /* ---------- Highlight the current section in the menu ---------- */
+.preview {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--preview-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.preview i { position: absolute; display: block; background: var(--border); border-radius: 4px; }
 
-  if ("IntersectionObserver" in window && nav) {
-    var links = {};
-    nav.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      links[a.getAttribute("href").slice(1)] = a;
-    });
+/* Subvenio: sidebar, top bar, four rows */
+.preview--app i:nth-child(1) { left: 0; top: 0; bottom: 0; width: 22%; border-radius: 0; background: var(--surface-2); }
+.preview--app i:nth-child(2) { left: 27%; right: 4%; top: 9%; height: 10%; }
+.preview--app i:nth-child(n+3) { left: 27%; right: 4%; height: 12%; background: var(--surface-2); }
+.preview--app i:nth-child(3) { top: 27%; border-left: 4px solid var(--accent); }
+.preview--app i:nth-child(4) { top: 43%; }
+.preview--app i:nth-child(5) { top: 59%; }
+.preview--app i:nth-child(6) { top: 75%; }
 
-    var setCurrent = function (id) {
-      Object.keys(links).forEach(function (key) { links[key].removeAttribute("aria-current"); });
-      if (id && links[id]) links[id].setAttribute("aria-current", "true");
-    };
+/* Clinical Census Dashboard: filter bar, two tiles, heatmap, list */
+.preview--heat i:nth-child(1) { left: 4%; right: 4%; top: 8%; height: 10%; }
+.preview--heat i:nth-child(2),
+.preview--heat i:nth-child(3) { top: 25%; height: 20%; background: var(--surface-2); }
+.preview--heat i:nth-child(2) { left: 4%; width: 28%; }
+.preview--heat i:nth-child(3) { left: 36%; width: 26%; }
+.preview--heat i:nth-child(4) {
+  left: 4%; width: 58%; top: 52%; height: 40%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 2px), var(--preview-bg) calc(12.5% - 2px) 12.5%),
+    repeating-linear-gradient(0deg, transparent 0 calc(25% - 2px), var(--preview-bg) calc(25% - 2px) 25%),
+    linear-gradient(90deg, rgba(111,179,138,.18), rgba(111,179,138,.6), rgba(111,179,138,.3), rgba(111,179,138,.75));
+}
+.preview--heat i:nth-child(5) { left: 66%; right: 4%; top: 25%; height: 67%; background: var(--surface-2); }
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        setCurrent(entry.target.id === "top" ? null : entry.target.id);
-      });
-    }, { rootMargin: "-35% 0px -60% 0px" });
+/* FlavorBridge: header, note card, two tags */
+.preview--pair i:nth-child(1) { left: 4%; right: 4%; top: 8%; height: 10%; }
+.preview--pair i:nth-child(2) {
+  left: 4%; right: 4%; top: 25%; height: 40%;
+  background: var(--surface-2);
+  border-left: 4px solid var(--accent);
+}
+.preview--pair i:nth-child(3),
+.preview--pair i:nth-child(4) { top: 73%; height: 11%; width: 22%; border-radius: 999px; background: var(--accent-tint); }
+.preview--pair i:nth-child(3) { left: 4%; }
+.preview--pair i:nth-child(4) { left: 30%; }
 
-    ["top", "projects", "skills", "experience", "founder", "contact"].forEach(function (id) {
-      var section = byId(id);
-      if (section) observer.observe(section);
-    });
-  }
+/* CHOCO-TRACK: header, four lot rows with a status tag each */
+.preview--table i:nth-child(1) { left: 4%; right: 4%; top: 8%; height: 10%; }
+.preview--table i:nth-child(n+2) { left: 4%; right: 4%; height: 12%; background: var(--surface-2); }
+.preview--table i:nth-child(2) { top: 27%; }
+.preview--table i:nth-child(3) { top: 43%; }
+.preview--table i:nth-child(4) { top: 59%; }
+.preview--table i:nth-child(5) { top: 75%; }
+.preview--table i:nth-child(n+2)::after {
+  content: "";
+  position: absolute;
+  right: 3%;
+  top: 25%;
+  width: 16%;
+  height: 50%;
+  border-radius: 999px;
+  background: var(--accent-tint);
+}
 
-  /* ---------- Start ---------- */
+/* ---------- Skills ---------- */
 
-  applyLang(lang);
-})();
+.skill-grid { display: grid; gap: 36px 48px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .skill-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.skill-group h3 {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Experience ---------- */
+
+.timeline { list-style: none; position: relative; padding-left: 32px; max-width: 46rem; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item { position: relative; padding-bottom: 36px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 7px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--muted);
+}
+.timeline-item--current::before { background: var(--accent); border-color: var(--accent); }
+
+.timeline-item h3 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+.timeline-org { margin-bottom: 2px; }
+.timeline-dates { margin-bottom: 10px; color: var(--muted); }
+.timeline-item ul { padding-left: 1.2rem; color: var(--muted); }
+.timeline-item ul li { margin-bottom: 6px; }
+
+.edu { max-width: 46rem; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); }
+.edu h3 { margin-bottom: 12px; }
+.edu ul { padding-left: 1.2rem; margin-bottom: 16px; }
+.edu li { margin-bottom: 8px; }
+.edu-aff { color: var(--muted); font-size: 0.95rem; margin-bottom: 0; }
+
+/* ---------- Founder ---------- */
+
+.founder-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .founder-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.founder-item {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--brand);
+  border-radius: 6px 6px 14px 14px;
+}
+.founder-item h3 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+.founder-item p { margin-bottom: 0; color: var(--muted); }
+
+/* ---------- Contact ---------- */
+
+.contact-links { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
+#contact p { color: var(--muted); max-width: 40em; }
+
+/* ---------- Footer ---------- */
+
+.site-footer { padding: 32px 0 40px; border-top: 1px solid var(--border); color: var(--muted); }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+.footer-inner p { margin: 0; }
+
+/* ---------- Project details window ---------- */
+
+dialog {
+  width: calc(100% - 32px);
+  max-width: 720px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.72); }
+dialog[open] { animation: dlg-in 0.18s ease-out; }
+@keyframes dlg-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.dlg-inner { padding: 24px; }
+.dlg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.dlg-head h2 { font-size: 1.75rem; }
+.dlg-close {
+  flex: none;
+  min-height: 44px;
+  padding: 0 16px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.dlg-close:hover { border-color: var(--accent); color: var(--accent); }
+
+.dlg-media { margin: 16px 0 8px; }
+.dlg-media:empty { display: none; }
+.dlg-media .preview { max-width: 460px; }
+.dlg-media .badge { display: none; }
+
+.dlg-inner h3 { margin: 24px 0 8px; }
+.dlg-inner p { color: var(--muted); }
+.dlg-inner ul:not(.chips) { padding-left: 1.2rem; color: var(--muted); }
+.dlg-inner ul:not(.chips) li { margin-bottom: 6px; }
+.dlg-note {
+  margin-top: 24px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  background: var(--surface-2);
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+}
+.dlg-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 24px; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 560px) {
+  body { font-size: 1rem; }
+  .hero { padding: 56px 0 48px; }
+  .section { padding: 56px 0; }
+  .facts li { flex-direction: column; gap: 4px; }
+  .dlg-inner { padding: 18px; }
+  .dlg-head h2 { font-size: 1.5rem; }
+  .dlg-nav .btn { flex: 1 1 100%; }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
